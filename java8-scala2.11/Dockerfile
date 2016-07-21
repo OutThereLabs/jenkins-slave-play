@@ -30,10 +30,9 @@ RUN cd /opt/app-root/barebones && \
       -sbt-dir $SBT_HOME/.sbt/$SBT_VERSION \
       -sbt-launch-dir $SBT_HOME/.sbt/launchers \
       -ivy $SBT_HOME/.ivy2 \
-      about
-
-RUN chown -R 1001:0 $SBT_HOME/.sbt $SBT_HOME/.ivy2 || true && \
-    chmod -R g+w $SBT_HOME/.sbt $SBT_HOME/.ivy2 || true
+      about && \
+    chown -R 1001:0 $SBT_HOME/.sbt $SBT_HOME/.ivy2 && \
+    chmod -R g+w $SBT_HOME/.sbt $SBT_HOME/.ivy2
 
 # Run the JNLP client by default
 # To use swarm client, specify "/opt/app-root/jenkins/run-swarm-client" as Command

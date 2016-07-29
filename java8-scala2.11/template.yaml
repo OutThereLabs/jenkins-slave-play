@@ -29,7 +29,7 @@ objects:
         name: java8-jenkins-slave:latest
     resources: {}
     source:
-      contextDir: java8
+      contextDir: java8-scala2.11
       git:
         ref: master
         uri: https://github.com/OutThereLabs/jenkins-slaves.git

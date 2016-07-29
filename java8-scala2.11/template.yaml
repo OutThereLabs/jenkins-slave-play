@@ -1,14 +1,16 @@
 apiVersion: v1
-items:
+kind: Template
+metadata:
+  name: s2i-scala
+objects:
 - apiVersion: v1
   kind: ImageStream
   metadata:
     annotations:
-      slave-directory: /var/lib/jenkins
+      slave-directory: /opt/app-root/jenkins
       slave-label: java8
     labels:
       role: jenkins-slave
-      template: jenkins-slave-builder
     name: java8-jenkins-slave
   spec: {}
 - apiVersion: v1
@@ -39,6 +41,20 @@ items:
           name: openshift/base-centos7
       type: Docker
     triggers:
-    - type: ConfigChange
-kind: List
-metadata: {}
+    - github:
+        secret: "${GITHUB_WEBHOOK_SECRET}"
+      type: GitHub
+    - generic:
+        secret: "${GENERIC_WEBHOOK_SECRET}"
+      type: Generic
+parameters:
+  - name: "GITHUB_WEBHOOK_SECRET"
+    displayName: "GitHub Webhook Secret"
+    description: "A secret string used to configure the GitHub webhook."
+    generate: "expression"
+    from: "[a-zA-Z0-9]{40}"
+  - name: "GENERIC_WEBHOOK_SECRET"
+    displayName: "GitHub Webhook Secret"
+    description: "A secret string used to configure the GitHub webhook."
+    generate: "expression"
+    from: "[a-zA-Z0-9]{40}"

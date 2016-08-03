@@ -1,7 +1,9 @@
 apiVersion: v1
 kind: Template
 metadata:
-  name: s2i-scala
+  name: jenkins-slaves
+abels:
+  template: jenkins-slaves
 objects:
 - apiVersion: v1
   kind: ImageStream
@@ -11,50 +13,13 @@ objects:
       slave-label: java8
     labels:
       role: jenkins-slave
-    name: java8-jenkins-slave
-  spec: {}
-- apiVersion: v1
-  kind: BuildConfig
-  metadata:
-    annotations:
-      description: Modifies the openshift/base-centos7 to run as Jenkins slave
-    labels:
-      name: java8-slave
-      template: jenkins-slave-builder
-    name: java8-jenkins-slave
+    name: jenkins-slave
   spec:
-    output:
-      to:
-        kind: ImageStreamTag
-        name: java8-jenkins-slave:latest
-    resources: {}
-    source:
-      contextDir: java8-scala2.11
-      git:
-        ref: master
-        uri: https://github.com/OutThereLabs/jenkins-slaves.git
-      type: Git
-    strategy:
-      dockerStrategy:
-        from:
-          kind: DockerImage
-          name: openshift/base-centos7
-      type: Docker
-    triggers:
-    - github:
-        secret: "${GITHUB_WEBHOOK_SECRET}"
-      type: GitHub
-    - generic:
-        secret: "${GENERIC_WEBHOOK_SECRET}"
-      type: Generic
-parameters:
-  - name: "GITHUB_WEBHOOK_SECRET"
-    displayName: "GitHub Webhook Secret"
-    description: "A secret string used to configure the GitHub webhook."
-    generate: "expression"
-    from: "[a-zA-Z0-9]{40}"
-  - name: "GENERIC_WEBHOOK_SECRET"
-    displayName: "GitHub Webhook Secret"
-    description: "A secret string used to configure the GitHub webhook."
-    generate: "expression"
-    from: "[a-zA-Z0-9]{40}"
+    tags:
+    - name: 'latest'
+      annotations:
+        description: 'Provides Jenkins slaves with Java 8'
+        tags: jenkins-slaves
+      from:
+        kind: DockerImage
+        name: 'outtherelabs/jenkins-slaves:latest'

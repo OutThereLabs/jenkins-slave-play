@@ -1,5 +1,5 @@
 # The FROM will be replaced when building in OpenShift
-FROM openshift/base-centos7
+FROM centos:centos7
 
 # Install headless Java
 USER root

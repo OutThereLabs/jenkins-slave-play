@@ -12,6 +12,9 @@ RUN yum install -y --setopt=tsflags=nodocs --enablerepo=centosplus epel-release 
     mkdir -p /opt/app-root/jenkins && \
     chown -R 1001:0 /opt/app-root/jenkins && \
     chmod -R g+w /opt/app-root/jenkins
+    curl -L https://github.com/openshift/origin/releases/download/v1.2.1/openshift-origin-client-tools-v1.2.1-5e723f6-linux-64bit.tar.gz | tar -zx && \
+    mv openshift*/oc /usr/local/bin && \
+    rm -rf openshift-origin-client-tools-*
 
 # Copy the entrypoint
 COPY contrib/openshift/* /opt/app-root/jenkins/

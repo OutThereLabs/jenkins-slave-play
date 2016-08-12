@@ -17,7 +17,7 @@ addSbtPlugin("com.eed3si9n" % "sbt-buildinfo" % "0.6.1")
 addSbtPlugin("com.gilt.sbt" % "sbt-newrelic" % "0.1.8")
 
 // JMX API
-addSbtPlugin("com.jatescher" % "sbt-jolokia" % "1.0.1")
+addSbtPlugin("com.jatescher" % "sbt-jolokia" % "1.0.2")
 
 // UTC timezone
 addSbtPlugin("com.timgroup" % "sbt-utc" % "0.0.14")

@@ -17,6 +17,8 @@ objects:
   spec:
     tags:
     - name: 'latest'
+      importPolicy:
+        scheduled: true
       annotations:
         description: 'Provides Jenkins slaves with Java 8'
         tags: jenkins-slaves

@@ -1,3 +1,3 @@
 # Jenkins Slaves
 
-Out there labs Jenkins slaves configuration
+Out there labs Jenkins slave configurations
